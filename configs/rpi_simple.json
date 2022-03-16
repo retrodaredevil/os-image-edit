@@ -1,0 +1,22 @@
+{
+  "variables": {
+  },
+  "builders": [
+    {
+      "type": "arm-image",
+      "iso_url": "file:///build/.downloads/2022-01-28-raspios-bullseye-armhf-lite.zip",
+      "iso_checksum": "sha256:f6e2a3e907789ac25b61f7acfcbf5708a6d224cf28ae12535a2dc1d76a62efbc",
+      "target_image_size": 3009071616
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apt-get update",
+        "df -H",
+        "apt-get install -y openjdk-11-jdk openjdk-11-jdk-headless curl wget"
+      ]
+    }
+  ]
+}
