@@ -18,8 +18,16 @@ build: docker
 		--rm \
 		--privileged \
 		-v /dev:/dev \
-		-v ${PWD}:/build:ro \
-		-v ${PWD}/packer_cache:/build/packer_cache \
-		-v ${PWD}/output-arm-image:/build/output-arm-image \
+		-v .:/build:ro \
+		-v ./packer_cache:/build/packer_cache \
+		-v ./output-arm-image:/build/output-arm-image \
 		ghcr.io/solo-io/packer-plugin-arm-image build configs/rpi_simple.json
+
+.PHONY: create-config-files
+create-config-files:
+	mkdir -p config_files
+
+.PHONY: config-users
+config-users: create-config-files
+	python3 scripts/config_users.py config_files/users.json
 
