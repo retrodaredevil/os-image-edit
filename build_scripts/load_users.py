@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import shutil
 import sys
 from pathlib import Path
 import subprocess
@@ -69,12 +70,14 @@ def main(args) -> int:
         if ssh_authorized:
             ssh_directory = Path(get_home_directory(name), ".ssh")
             ssh_directory.mkdir(mode=0o700, exist_ok=True)  # parents=False because the home directory should already be created
+            shutil.chown(ssh_directory, user=name, group=name)  # we assume that each user has their own group
             ssh_authorized_file = Path(ssh_directory, f"authorized_keys")
             print(f"Going to add authorized keys to {ssh_authorized_file}")
             with ssh_authorized_file.open("a") as stream:
                 for authorized_key in ssh_authorized:
                     stream.write(authorized_key + "\n")
             ssh_authorized_file.chmod(0o600)
+            shutil.chown(ssh_authorized_file, user=name, group=name)
 
     return 0
 
