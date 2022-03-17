@@ -1,5 +1,6 @@
 {
   "variables": {
+    "PWD": "{{env `PWD`}}"
   },
   "builders": [
     {
@@ -11,12 +12,20 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "config_files/",
+      "destination": "/opt/config_files/"
+    },
+    {
       "type": "shell",
       "inline": [
         "apt-get update",
-        "df -H",
-        "apt-get install -y openjdk-11-jdk openjdk-11-jdk-headless curl wget python3 python3-pip"
+        "apt-get install -y curl wget python3 python3-pip"
       ]
+    },
+    {
+      "type": "shell",
+      "script": "build_scripts/load_users.py"
     }
   ]
 }
