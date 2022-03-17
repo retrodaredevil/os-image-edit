@@ -67,11 +67,14 @@ def main(args) -> int:
 
         ssh_authorized = user.get("ssh_authorized")
         if ssh_authorized:
-            ssh_authorized_file = Path(get_home_directory(name), f".ssh/authorized_keys")
+            ssh_directory = Path(get_home_directory(name), ".ssh")
+            ssh_directory.mkdir(mode=0o700, exist_ok=True)  # parents=False because the home directory should already be created
+            ssh_authorized_file = Path(ssh_directory, f"authorized_keys")
             print(f"Going to add authorized keys to {ssh_authorized_file}")
             with ssh_authorized_file.open("a") as stream:
                 for authorized_key in ssh_authorized:
                     stream.write(authorized_key + "\n")
+            ssh_authorized_file.chmod(0o600)
 
     return 0
 

@@ -1,4 +1,6 @@
 
+OUTPUT_FILE=2022-01-28-raspios-bullseye-armhf-lite-edit.zip
+
 .PHONY: clean docker download-image
 
 clean:
@@ -22,6 +24,12 @@ build: docker
 		-v ${PWD}/packer_cache:/build/packer_cache \
 		-v ${PWD}/output-arm-image:/build/output-arm-image \
 		ghcr.io/solo-io/packer-plugin-arm-image build configs/rpi_simple.json
+
+zip:
+	rm -f ${OUTPUT_FILE}
+	zip -j ${OUTPUT_FILE} output-arm-image/image
+	printf "@ image\n@=2022-01-28-raspios-bullseye-armhf-lite-edit.img\n" | zipnote -w ${OUTPUT_FILE}
+
 
 .PHONY: create-config-files
 create-config-files:

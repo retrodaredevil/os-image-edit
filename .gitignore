@@ -3,6 +3,7 @@
 packer_cache/
 output-arm-image/
 config_files/
+*.zip
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,intellij,visualstudiocode
