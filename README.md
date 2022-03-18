@@ -12,7 +12,12 @@ You must have `make` and docker installed on your system. `python3` may optional
 help with the creation of the WiFi configuration file.
 
 ### Building
-Run `make build`.
+Run `make build-rpi-os zip`.
 
 ### Running With Sudo
 If your system requires you to use sudo to run a docker command, you should build the image like this: `sudo -E make build`.
+
+
+### Other Notes
+* If you are creating a new user, I recommend giving these groups:
+  * `adm,tty,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi`
