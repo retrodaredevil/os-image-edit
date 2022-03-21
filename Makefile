@@ -38,6 +38,12 @@ docker:
 		-v ${PWD}/output-arm-image:/build/output-arm-image \
 		ghcr.io/solo-io/packer-plugin-arm-image build ${CONFIG_FILE}
 
+.PHONY: --zip
+--zip:
+	rm -f ${OUTPUT_ZIP_FILE}
+	zip -j ${OUTPUT_ZIP_FILE} output-arm-image/image
+	printf "@ image\n@=${COMPRESSED_OUTPUT_FILE_NAME}\n" | zipnote -w ${OUTPUT_ZIP_FILE}
+
 .PHONY: build-rpi-os
 build-rpi-os: OUTPUT_ZIP_FILE=${RPI_OS_OUTPUT_ZIP_FILE}
 build-rpi-os: COMPRESSED_OUTPUT_FILE_NAME=${RPI_OS_COMPRESSED_OUTPUT_FILE_NAME}
@@ -52,14 +58,8 @@ build-armbian-rpi: CONFIG_FILE=${ARMBIAN_RPI_CONFIG_FILE}
 build-armbian-rpi: IMAGE_FILE=${ARMBIAN_RPI_IMAGE_FILE}
 build-armbian-rpi: IMAGE_FILE_URL=${ARMBIAN_RPI_IMAGE_FILE_URL}
 
-build-rpi-os build-armbian-rpi: --download-image --build
+build-rpi-os build-armbian-rpi: --download-image --build --zip
 
-
-.PHONY: zip
-zip:
-	rm -f ${OUTPUT_ZIP_FILE}
-	zip -j ${OUTPUT_ZIP_FILE} output-arm-image/image
-	printf "@ image\n@=${COMPRESSED_OUTPUT_FILE_NAME}\n" | zipnote -w ${OUTPUT_ZIP_FILE}
 
 
 .PHONY: create-config-files
