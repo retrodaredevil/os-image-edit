@@ -51,6 +51,13 @@ build-rpi-os: CONFIG_FILE=${RPI_OS_CONFIG_FILE}
 build-rpi-os: IMAGE_FILE=${RPI_OS_IMAGE_FILE}
 build-rpi-os: IMAGE_FILE_URL=${RPI_OS_IMAGE_FILE_URL}
 
+.PHONY: build-rpi-os-lightning
+build-rpi-os-lightning: OUTPUT_ZIP_FILE=2022-01-28-raspios-bullseye-armhf-lite-lightning.zip
+build-rpi-os-lightning: COMPRESSED_OUTPUT_FILE_NAME=2022-01-28-raspios-bullseye-armhf-lite-lightning.img
+build-rpi-os-lightning: CONFIG_FILE=configs/rpi_lightning.json
+build-rpi-os-lightning: IMAGE_FILE=${RPI_OS_IMAGE_FILE}
+build-rpi-os-lightning: IMAGE_FILE_URL=${RPI_OS_IMAGE_FILE_URL}
+
 .PHONY: build-armbian-rpi
 build-armbian-rpi: OUTPUT_ZIP_FILE=${ARMBIAN_RPI_OUTPUT_ZIP_FILE}
 build-armbian-rpi: COMPRESSED_OUTPUT_FILE_NAME=${ARMBIAN_RPI_COMPRESSED_OUTPUT_FILE_NAME}
@@ -58,7 +65,7 @@ build-armbian-rpi: CONFIG_FILE=${ARMBIAN_RPI_CONFIG_FILE}
 build-armbian-rpi: IMAGE_FILE=${ARMBIAN_RPI_IMAGE_FILE}
 build-armbian-rpi: IMAGE_FILE_URL=${ARMBIAN_RPI_IMAGE_FILE_URL}
 
-build-rpi-os build-armbian-rpi: --download-image --build --zip
+build-rpi-os build-armbian-rpi build-rpi-os-lightning: --download-image --build --zip
 
 
 

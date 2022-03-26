@@ -1,0 +1,46 @@
+{
+  "variables": {
+    "PWD": "{{env `PWD`}}"
+  },
+  "builders": [
+    {
+      "type": "arm-image",
+      "iso_url": "file:///build/.downloads/2022-01-28-raspios-bullseye-armhf-lite.zip",
+      "iso_checksum": "sha256:f6e2a3e907789ac25b61f7acfcbf5708a6d224cf28ae12535a2dc1d76a62efbc",
+      "target_image_size": 3009071616
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "config_files/",
+      "destination": "/opt/config_files/"
+    },
+    {
+      "type": "file",
+      "source": "build_files/lightning_dhcpcd.conf",
+      "destination": "/etc/dhcpcd.conf"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "systemctl enable ssh",
+        "apt-get update"
+      ]
+    },
+    {
+      "type": "shell",
+      "script": "build_scripts/lightning_install_vision.sh"
+    },
+    {
+      "type": "shell",
+      "script": "build_scripts/load_users.py"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "apt-get install -y curl wget vim-gtk3"
+      ]
+    }
+  ]
+}

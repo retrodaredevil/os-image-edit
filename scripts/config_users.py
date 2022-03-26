@@ -94,12 +94,12 @@ def main(args: List[str]) -> int:
     if len(args) != 1:
         print("Usage <... command> <output json file>")
         return 1
-    file = Path(args[0])
-    if file.exists():
+    file = None if args[0] == "-" else Path(args[0])
+    if file is not None and file.exists():
         print(f"{file} exists! It will be overwritten. Press enter to continue.")
         input()
     print("Welcome to the user configuration program!")
-    print(f"This program will ask you questions then save your configuration to {file}")
+    print(f"This program will ask you questions then save your configuration to {file or 'stdout (your terminal)'}")
     print("Whenever you are asked for a list of groups, it should take the format: group1,group2,group3\n\tThere should be no spaces in between groups.")
     print()
     users = []
@@ -114,8 +114,11 @@ def main(args: List[str]) -> int:
     }
     json_data = json.dumps(root)
 
-    with file.open("w") as stream:
-        stream.write(json_data)
+    if file:
+        with file.open("w") as stream:
+            stream.write(json_data)
+    else:
+        print(json_data)
 
     return 0
 
