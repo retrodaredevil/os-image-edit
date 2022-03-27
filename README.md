@@ -12,7 +12,14 @@ You must have `make` and docker installed on your system. `python3` may optional
 help with the creation of the WiFi configuration file.
 
 ### Building
-Run `make build-rpi-os`.
+You have a couple of different options. Here's some examples:
+```shell
+make build zip
+make BASE=armbian build zip
+make OUTPUT_SUFFIX=my_edit build zip
+make OUTPUT_SUFFIX=lightning CONFIG_FILE=configs/rpi_lightning.json BASE=rpi make zip
+make BASE=rpi CONFIG_FILE=configs/rpi_opencv.json OUTPUT_SUFFIX=-opencv build zip
+```
 
 ### Running With Sudo
 If your system requires you to use sudo to run a docker command, you should build the image like this: `sudo -E make build`.
