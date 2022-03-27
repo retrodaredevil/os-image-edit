@@ -35,9 +35,11 @@ docker:
 #	test -f ${IMAGE_FILE} || wget -O ${IMAGE_FILE} ${IMAGE_FILE_URL}
 
 .downloads/2022-01-28-raspios-bullseye-armhf-lite.zip:
+	mkdir -p .downloads/
 	wget -O .downloads/2022-01-28-raspios-bullseye-armhf-lite.zip https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2022-01-28/2022-01-28-raspios-bullseye-armhf-lite.zip
 
 .downloads/Armbian_22.02.0-trunk.0009_Rpi4b_focal_current_5.15.13_xfce_desktop.img.xz:
+	mkdir -p .downloads/
 	wget -O .downloads/Armbian_22.02.0-trunk.0009_Rpi4b_focal_current_5.15.13_xfce_desktop.img.xz https://armbian.hosthatch.com/archive/rpi4b/nightly/Armbian_22.02.0-trunk.0009_Rpi4b_focal_current_5.15.13_xfce_desktop.img.xz
 
 output/2022-01-28-raspios-bullseye-armhf-lite-opencv.zip:
