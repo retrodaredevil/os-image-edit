@@ -17,6 +17,11 @@ CONFIG_FILE=$(RPI_OS_CONFIG_FILE)
 IMAGE_FILE=$(RPI_OS_IMAGE_FILE)
 OUTPUT_PREFIX=${RPI_OS_OUTPUT_PREFIX}
 endif
+ifeq "$(BASE)" "rpi-opencv"
+# The user should define the CONFIG_FILE themselves
+IMAGE_FILE=output/2022-01-28-raspios-bullseye-armhf-lite-opencv.zip
+OUTPUT_PREFIX=${RPI_OS_OUTPUT_PREFIX}
+endif
 ifeq "$(BASE)" "armbian"
 CONFIG_FILE=$(ARMBIAN_RPI_CONFIG_FILE)
 IMAGE_FILE=$(ARMBIAN_RPI_IMAGE_FILE)

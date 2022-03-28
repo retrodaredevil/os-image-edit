@@ -17,7 +17,7 @@ You have a couple of different options. Here's some examples:
 make build zip
 make BASE=armbian build zip
 make OUTPUT_SUFFIX=my_edit build zip
-make OUTPUT_SUFFIX=lightning CONFIG_FILE=configs/rpi_lightning.json BASE=rpi make zip
+make OUTPUT_SUFFIX=lightning CONFIG_FILE=configs/rpi_lightning.json BASE=rpi-opencv build zip
 make BASE=rpi CONFIG_FILE=configs/rpi_opencv.json OUTPUT_SUFFIX=-opencv build zip
 ```
 

@@ -5,7 +5,7 @@
   "builders": [
     {
       "type": "arm-image",
-      "iso_url": "file:///build/.downloads/2022-01-28-raspios-bullseye-armhf-lite-opencv.zip",
+      "iso_url": "file:///build/output/2022-01-28-raspios-bullseye-armhf-lite-opencv.zip",
       "iso_checksum": "none",
       "target_image_size": 4009071616
     }
@@ -27,6 +27,10 @@
         "systemctl enable ssh",
         "apt-get update"
       ]
+    },
+    {
+      "type": "shell",
+      "script": "build_scripts/install_cppzmq.sh"
     },
     {
       "type": "shell",
