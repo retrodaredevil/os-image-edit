@@ -27,6 +27,10 @@
     {
       "type": "shell",
       "script": "build_scripts/load_users.py"
+    },
+    {
+      "type": "shell",
+      "script": "build_scripts/maybe_copy.sh"
     }
   ]
 }

@@ -11,6 +11,14 @@ This repository demonstrates the usage of [packer-plugin-arm-image](https://gith
 You must have `make` and docker installed on your system. `python3` may optionally be installed to
 help with the creation of the WiFi configuration file.
 
+### Configuring WiFi
+Note: This only works for Raspberry Pis. In the future this may change.
+
+To configure WiFi, place the `wpa_supplicant.conf` file in `config_files/`. You can use [headless-setup](https://github.com/retrodaredevil/headless-setup/)
+to generate this file. If you have that installed, you should run `make config-wifi` to automatically place the file in the correct place.
+
+TODO: Remove question about enabling SSH in headless-setup.
+
 ### Building
 You have a couple of different options. Here's some examples:
 ```shell

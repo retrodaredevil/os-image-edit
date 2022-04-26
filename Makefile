@@ -80,3 +80,6 @@ create-config-files:
 config-users: create-config-files
 	@python3 scripts/config_users.py config_files/users.json
 
+.PHONY: config-wifi
+config-wifi: create-config-files
+	@cd config_files && headless-setup

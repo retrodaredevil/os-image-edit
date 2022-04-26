@@ -2,8 +2,10 @@
 import json
 import shutil
 import sys
+import traceback
 from pathlib import Path
 import subprocess
+from typing import Optional
 
 
 def get_home_directory(user: str) -> Path:
@@ -16,7 +18,12 @@ def get_home_directory(user: str) -> Path:
 
 def main(args) -> int:
     file = Path("/opt/config_files/users.json")
-    json_data = file.read_text("UTF-8")
+    try:
+        json_data = file.read_text("UTF-8")
+    except FileNotFoundError as ex:
+        traceback.print_exception(type(ex), ex, ex.__traceback__)
+        print("Did not find the users.json file! Make sure to run make config-users")
+        return 0
     root = json.loads(json_data)
     print(root)
     for user in root["users"]:
@@ -66,7 +73,7 @@ def main(args) -> int:
                 return passwd_exit_code
             print(f"Successfully locked {name}")
 
-        ssh_authorized = user.get("ssh_authorized")
+        ssh_authorized: Optional[str] = user.get("ssh_authorized")
         if ssh_authorized:
             ssh_directory = Path(get_home_directory(name), ".ssh")
             ssh_directory.mkdir(mode=0o700, exist_ok=True)  # parents=False because the home directory should already be created
@@ -75,7 +82,7 @@ def main(args) -> int:
             print(f"Going to add authorized keys to {ssh_authorized_file}")
             with ssh_authorized_file.open("a") as stream:
                 for authorized_key in ssh_authorized:
-                    stream.write(authorized_key + "\n")
+                    stream.write(authorized_key.strip() + "\n")
             ssh_authorized_file.chmod(0o600)
             shutil.chown(ssh_authorized_file, user=name, group=name)
 

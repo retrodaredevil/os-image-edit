@@ -9,6 +9,10 @@ import secrets
 import json
 
 
+DEFAULT_PUBLIC_SSH_FILE = Path("~/.ssh/id_rsa.pub")
+"""The default public ssh key file. Note: expanduser() must be called before using this"""
+
+
 class UserType(Enum):
     NEW = "NEW"
     EDIT = "EDIT"
@@ -86,6 +90,22 @@ def create_user_config() -> dict:
         r["system"] = request_boolean(False)
         print("Should a home directory be created?", end="")
         r["create_home"] = request_boolean(True)
+
+    print("Should an public SSH Key be added as an authorized key that can be used to login via SSH?", end="")
+    if request_boolean(False):
+        key_file = DEFAULT_PUBLIC_SSH_FILE
+        print(f"Enter the name of the file containing the public key ({key_file}): ")
+        input_file = input()
+        if input_file:
+            key_file = Path(input_file)
+        key_file = key_file.expanduser()
+        try:
+            public_key = key_file.read_text("UTF-8")
+        except FileNotFoundError:
+            print("Could not find that file! Ending!")
+            raise
+        print(f"Going to use {repr(public_key.strip())} as public key")
+        r["ssh_authorized"] = public_key
 
     return r
 

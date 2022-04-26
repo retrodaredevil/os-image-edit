@@ -42,6 +42,10 @@
     },
     {
       "type": "shell",
+      "script": "build_scripts/maybe_copy.sh"
+    },
+    {
+      "type": "shell",
       "inline": [
         "apt-get install -y curl wget vim-gtk3"
       ]
