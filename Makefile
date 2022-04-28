@@ -62,7 +62,7 @@ build: docker download-image
 		-v ${PWD}:/build:ro \
 		-v ${PWD}/packer_cache:/build/packer_cache \
 		-v ${PWD}/output-arm-image:/build/output-arm-image \
-		ghcr.io/solo-io/packer-plugin-arm-image build ${CONFIG_FILE}
+		ghcr.io/solo-io/packer-plugin-arm-image:v0.2.6 build ${CONFIG_FILE}
 
 .PHONY: zip
 zip:

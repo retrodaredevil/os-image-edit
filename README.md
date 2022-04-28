@@ -1,5 +1,6 @@
 # OS Image Edit
 This repository demonstrates the usage of [packer-plugin-arm-image](https://github.com/solo-io/packer-plugin-arm-image).
+Uses [this](https://github.com/solo-io/packer-plugin-arm-image/pkgs/container/packer-plugin-arm-image).
 
 ### Features
 * Installs a minimal set of software that is commonly used

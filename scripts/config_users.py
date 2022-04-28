@@ -105,7 +105,7 @@ def create_user_config() -> dict:
             print("Could not find that file! Ending!")
             raise
         print(f"Going to use {repr(public_key.strip())} as public key")
-        r["ssh_authorized"] = public_key
+        r["ssh_authorized"] = [public_key]  # in the future, we could give ability to add multiple
 
     return r
 

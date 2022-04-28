@@ -5,7 +5,7 @@ import sys
 import traceback
 from pathlib import Path
 import subprocess
-from typing import Optional
+from typing import Optional, List
 
 
 def get_home_directory(user: str) -> Path:
@@ -73,7 +73,7 @@ def main(args) -> int:
                 return passwd_exit_code
             print(f"Successfully locked {name}")
 
-        ssh_authorized: Optional[str] = user.get("ssh_authorized")
+        ssh_authorized: List[str] = user.get("ssh_authorized") or []
         if ssh_authorized:
             ssh_directory = Path(get_home_directory(name), ".ssh")
             ssh_directory.mkdir(mode=0o700, exist_ok=True)  # parents=False because the home directory should already be created
