@@ -30,7 +30,7 @@ endif
 
 .PHONY: docker
 docker:
-	docker pull ghcr.io/solo-io/packer-plugin-arm-image
+	docker pull ghcr.io/solo-io/packer-plugin-arm-image:v0.2.6
 
 
 #.PHONY: download-image
